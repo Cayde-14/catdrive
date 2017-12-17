@@ -1,5 +1,7 @@
+import ctypes
 import os
-import shutil
+import platform
+import sys
 
 # Check current working directory.
 path = os.getcwd()
@@ -9,31 +11,16 @@ print ("Current working directory %s" % retval)
 
 
 
-def get_size(start_path = '.'):
-    total_size = 0
-    for dirpath, dirnames, filenames in os.walk(start_path):
-        for f in filenames:
-            fp = os.path.join(dirpath, f)
-            total_size += os.path.getsize(fp)
-    return total_size
-
-def freespace(p):
-    s = os.statvfs(p)
-    return s.f_bsize * s.f_bavail
-    
-
-
-def copy_functionUSB():
-	size = freespace(path) - get_size() 
-	count = 0
-	while size > 1000:
-		print(count)
-		count = count + 1
+def get_free_space_mb(dirname):
+    """Return folder/drive free space (in megabytes)."""
+    if platform.system() == 'Windows':
+        free_bytes = ctypes.c_ulonglong(0)
+        ctypes.windll.kernel32.GetDiskFreeSpaceExW(ctypes.c_wchar_p(dirname), None, None, ctypes.pointer(free_bytes))
+        return free_bytes.value / 1024 / 1024
+    else:
+        st = os.statvfs(dirname)
+        return st.f_bavail * st.f_frsize / 1024 / 1024
 		
 		
 
-print(freespace(path))
-
-print (get_size(path))
-
-print (freespace(path)-get_size(path))
+print(get_free_space_mb(path))
