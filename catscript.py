@@ -2,11 +2,18 @@ import ctypes
 import os
 import platform
 import sys
+import shutil
+import time 
+
+
 
 # Check current working directory.
 path = os.getcwd()
 retval = os.getcwd()
-print ("Current working directory %s" % retval)
+string = "/cat.jpg"
+newpath = path+string
+print ("Current working directory %s" % path)
+
 
 
 
@@ -20,7 +27,13 @@ def get_free_space_mb(dirname):
     else:
         st = os.statvfs(dirname)
         return st.f_bavail * st.f_frsize / 1024 / 1024
-		
-		
+        
 
-print(get_free_space_mb(path))
+def copy_function():
+	value = get_free_space_mb(path)
+	print ("Current newpath directory %s" % newpath)
+	while value > 1000:
+		shutil.copy2(newpath, '{}.jpg'.format(i))
+
+	
+copy_function()
