@@ -17,10 +17,23 @@ def get_size(start_path = '.'):
             total_size += os.path.getsize(fp)
     return total_size
 
-print (get_size(path))
+def freespace(p):
+    s = os.statvfs(p)
+    return s.f_bsize * s.f_bavail
+    
+
 
 def copy_functionUSB():
-	size = get_size()
+	size = freespace(path) - get_size() 
+	count = 0
 	while size > 1000:
-		print("hello bitches")
+		print(count)
+		count = count + 1
 		
+		
+
+print(freespace(path))
+
+print (get_size(path))
+
+print (freespace(path)-get_size(path))
