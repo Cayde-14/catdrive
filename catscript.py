@@ -12,3 +12,6 @@ for d in range(1,26):
         if t == win32file.DRIVE_REMOVABLE:
             drive_list.append(drname)
 return drive_list
+
+locate_usb()
+
