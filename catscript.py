@@ -41,25 +41,3 @@ if __name__ == '__main__':
         print ('%s = %s' % (drive_letter, DRIVE_TYPE_MAP[drive_type]))
     removable_drives = [drive_letter for drive_letter, drive_type in drive_info if drive_type == DRIVE_REMOVABLE]
     print ('removable_drives = %r' % removable_drives)
-
-
-
-=======
-# Scan system for removeable drives & prompt user to select the drive they wish to fuck
-def locate_usb():
-import win32file
-drive_list = []
-drivebits=win32file.GetLogicalDrives()
-for d in range(1,26):
-    mask=1 << d
-    if drivebits & mask:
-        # here if the drive is at least there
-        drname='%c:\\' % chr(ord('A')+d)
-        t=win32file.GetDriveType(drname)
-        if t == win32file.DRIVE_REMOVABLE:
-            drive_list.append(drname)
-return drive_list
-
-locate_usb()
->>>>>>> 6efe38780a325a64c8f5d5d1498fd71ad16ce30d
-
