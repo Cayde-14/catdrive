@@ -3,37 +3,34 @@ import os
 import platform
 import sys
 import shutil
-import time 
 
 
-
-# Check current working directory.
+# Grab the current directory
 path = os.getcwd()
 retval = os.getcwd()
 string = "/cat.jpg"
 newpath = path+string
-print ("Current working directory %s" % path)
+print ("Current directory %s" % path)
 
 
-
-
-
-def get_free_space_mb(dirname):
-    """Return folder/drive free space (in megabytes)."""
+def free_space(path):		#Determines the free space on the drive. Windows might be inaccurate.
     if platform.system() == 'Windows':
         free_bytes = ctypes.c_ulonglong(0)
-        ctypes.windll.kernel32.GetDiskFreeSpaceExW(ctypes.c_wchar_p(dirname), None, None, ctypes.pointer(free_bytes))
+        ctypes.windll.kernel32.GetDiskFreeSpaceExW(ctypes.c_wchar_p(path), None, None, ctypes.pointer(free_bytes))
         return free_bytes.value / 1024 / 1024
     else:
-        st = os.statvfs(dirname)
+        st = os.statvfs(path)
         return st.f_bavail * st.f_frsize / 1024 / 1024
         
 
-def copy_function():
-	value = get_free_space_mb(path)
-	print ("Current newpath directory %s" % newpath)
-	while value > 1000:
-		shutil.copy2(newpath, '{}.jpg'.format(i))
+def copy_function():	#Perform the copy on the path gathered from getcwd.
+#	print ("Current newpath directory %s" % newpath)
+	value = free_space(path)
+	count = 0
+	while value > 100.00: #While available memory is > 100 Mb
+		shutil.copy2('cat.jpg', '{}.jpg'.format(count))
+		count += 1
+		print("Space remaining." + free_space(path))
 
 	
 copy_function()
