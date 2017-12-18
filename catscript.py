@@ -2,6 +2,7 @@ import ctypes
 import os
 import platform
 import sys
+<<<<<<< HEAD
 import shutil
 
 
@@ -11,6 +12,15 @@ retval = os.getcwd()
 string = "/cat.jpg"
 newpath = path+string
 print ("Current directory %s" % path)
+=======
+
+# Check current working directory.
+path = os.getcwd()
+retval = os.getcwd()
+print ("Current working directory %s" % retval)
+
+
+>>>>>>> parent of a4eb4f5... FinalBeta
 
 
 def free_space(path):		#Determines the free space on the drive. Windows might be inaccurate.
@@ -21,6 +31,7 @@ def free_space(path):		#Determines the free space on the drive. Windows might be
     else:
         st = os.statvfs(path)
         return st.f_bavail * st.f_frsize / 1024 / 1024
+<<<<<<< HEAD
         
 
 def copy_function():	#Perform the copy on the path gathered from getcwd.
@@ -31,6 +42,9 @@ def copy_function():	#Perform the copy on the path gathered from getcwd.
 		shutil.copy2('cat.jpg', '{}.jpg'.format(count))
 		count += 1
 		print("Space remaining." + free_space(path))
+=======
+		
+		
+>>>>>>> parent of a4eb4f5... FinalBeta
 
-	
-copy_function()
+print(get_free_space_mb(path))
